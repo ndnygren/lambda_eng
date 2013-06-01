@@ -80,6 +80,19 @@ function lc_engine()
 		document.getElementById(this.def_table_name).innerHTML = defout;
 		document.getElementById(this.out_table_name).innerHTML = stepout;
 	}
+
+	this.inDefs = function(key)
+	{
+		var i;
+		for (i = 0; i < this.definitions.length; i++)
+		{
+			if (this.definitions[i].name == key)
+			{
+				return i;
+			}
+		}
+		return -1;
+	}
 	
 	this.findNextStep = function(expr)
 	{
@@ -113,6 +126,19 @@ function lc_engine()
 			if (temp != undefined)
 			{
 				expr.subexpr = temp;
+				return expr;
+			}
+		}
+		if (expr.type == "A")
+		{
+			if (expr.lhs.type == "V" && this.inDefs(expr.lhs.data) != -1)
+			{
+				expr.lhs = this.definitions[this.inDefs(expr.lhs.data)].def.copy();
+				return expr;
+			}
+			else if (expr.rhs.type == "V" && this.inDefs(expr.rhs.data) != -1)
+			{
+				expr.rhs = this.definitions[this.inDefs(expr.rhs.data)].def.copy();
 				return expr;
 			}
 		}
