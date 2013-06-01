@@ -44,6 +44,7 @@ function lc_engine()
 	
 	this.setExpr = function(input)
 	{
+		this.steppable = true
 		this.steps = [];
 		this.orig_expr = input;
 		this.steps.push(input);
@@ -80,6 +81,45 @@ function lc_engine()
 		document.getElementById(this.out_table_name).innerHTML = stepout;
 	}
 	
+	this.findNextStep = function(expr)
+	{
+		var temp;
+		if (expr.type == "A")
+		{
+			if (expr.lhs.type == "F")
+			{
+				return applyExpr(expr);
+			}
+			else
+			{
+				temp = this.findNextStep(expr.lhs);
+				if (temp != undefined)
+				{
+					expr.lhs = temp;
+					return expr;
+				}
+
+				temp = this.findNextStep(expr.rhs);
+				if (temp != undefined)
+				{
+					expr.rhs = temp;
+					return expr;
+				}
+			}
+		}
+		if (expr.type == "F")
+		{
+			temp = this.findNextStep(expr.subexpr);
+			if (temp != undefined)
+			{
+				expr.subexpr = temp;
+				return expr;
+			}
+		}
+
+		return undefined
+	}
+
 	this.step = function()
 	{
 		if (!this.steppable) { return; }
@@ -87,14 +127,16 @@ function lc_engine()
 
 		var current = this.steps[this.steps.length - 1].copy();
 
-		if (current.type == "A")
+		current = this.findNextStep(current);
+
+		if (current)
 		{
-			if (current.lhs.type == "F")
-			{
-				current = applyExpr(current);
-				this.steps.push(current);
-				this.makeTables();
-			}
+			this.steps.push(current);
+			this.makeTables();
+		}
+		else
+		{
+			this.steppable = false;
 		}
 	}
 }
