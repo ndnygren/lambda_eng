@@ -64,7 +64,7 @@ function lc_engine()
 
 		for (i = 0; i < this.definitions.length; i++)
 		{
-			defout += "\t<tr><td>" + this.definitions[i].name + "</td><td>" + this.definitions[i].def.toString() + "</td></tr>\n";
+			defout += "\t<tr><td>" + this.definitions[i].name + "</td><td>" + this.definitions[i].def.toString().replace(/\\lambda/g, "<img src=\"lambda.png\"/>") + "</td></tr>\n";
 		}
 
 		defout += "</table>\n";
@@ -72,7 +72,7 @@ function lc_engine()
 
 		for (i = 0; i < this.steps.length; i++)
 		{
-			stepout += "\t<tr><td>" + i + "</td><td>" + this.steps[i].toString() + "</td></tr>\n";
+			stepout += "\t<tr><td>" + i + "</td><td>" + this.steps[i].toString().replace(/\\lambda/g, "<img src=\"lambda.png\"/>") + "</td></tr>\n";
 		}
 
 		stepout += "</table>\n";
@@ -117,7 +117,7 @@ function lc_engine()
 			}
 		}
 
-		return undefined
+		return undefined;
 	}
 
 	this.step = function()

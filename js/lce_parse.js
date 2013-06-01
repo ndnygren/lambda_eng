@@ -161,7 +161,7 @@ function lce_expr_app(inlhs, inrhs)
 	this.toString = function()
 	{
 		var output = "";
-		if (this.lhs.type == "V") { output += this.lhs.toString(); }
+		if (this.lhs.type != "F") { output += this.lhs.toString(); }
 		else { output += "(" + this.lhs.toString() + ")";}
 		output += " ";
 		if (this.rhs.type == "V") { output += this.rhs.toString(); }
