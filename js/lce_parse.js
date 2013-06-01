@@ -45,6 +45,11 @@ function lce_expr_var(input)
 {
 	this.type = "V";
 	this.data = strip_ws(input);
+
+	this.copy = function()
+	{
+		return new lce_expr_var(this.data);
+	}
 	
 	this.toString = function()
 	{
@@ -62,6 +67,45 @@ function lce_expr_abs()
 	this.addVar = function(input)
 	{
 		this.varlist.push(strip_ws(input));
+	}
+	
+	this.remVar = function()
+	{
+		this.varlist.shift();
+	}
+
+	this.copy = function()
+	{
+		var i;
+		var temp = new lce_expr_abs();
+		
+		temp.subexpr = this.subexpr.copy();
+
+		for (i = 0; i < this.varlist.length; i++)
+		{
+			temp.addVar(this.varlist[i]);
+		}
+		
+		return temp;
+	}
+
+	this.replace = function(varname, newexpr)
+	{
+		var i;
+		
+		for (i = 0; i < this.varlist.length; i++)
+		{
+			if (varname == this.varlist[i]) { return; }
+		}
+		
+		if (this.subexpr.type != 'V')
+		{
+			this.subexpr.replace(varname, newexpr);
+		}
+		else if (this.subexpr.data == varname)
+		{
+			this.subexpr = newexpr;
+		}
 	}
 	
 	this.toString = function()
@@ -88,6 +132,32 @@ function lce_expr_app(inlhs, inrhs)
 	this.lhs = inlhs;
 	this.rhs = inrhs;
 
+	this.copy = function()
+	{
+		return new lce_expr_app(this.lhs.copy(), this.rhs.copy());
+	}
+
+	this.replace = function(varname, newexpr)
+	{
+		if (this.lhs.type != 'V')
+		{
+			this.lhs.replace(varname, newexpr);
+		}
+		else if (this.lhs.data == varname)
+		{
+			this.lhs = newexpr;
+		}
+		
+		if (this.rhs.type != 'V')
+		{
+			this.rhs.replace(varname, newexpr);
+		}
+		else if (this.rhs.data == varname)
+		{
+			this.rhs = newexpr;
+		}
+	}
+	
 	this.toString = function()
 	{
 		var output = "";

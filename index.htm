@@ -3,28 +3,42 @@
 <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
 <title>test page</title>
 <script type="text/javascript" src="js/lce_parse.js"></script>
+<script type="text/javascript" src="js/lc_engine.js"></script>
 </head>
 <body>
 <script type="text/javascript">
 
-function readexpr(source, dest)
+var eng = new lc_engine();
+
+function readexpr(source)
 {
 	var input_text = document.getElementById(source).value;
 	var current = lce_read_expr(input_text);
-	document.getElementById(dest).innerHTML = "\"" + current.toString() + "\"" + "\n<BR/>\n" + JSON.stringify(current);
+	eng.setExpr(current);
+	eng.makeTables();
 }
 
 </script>
+<div id="def_box"></div>
 <div id="lce_qbox">
 <form id="form1">
 <input id="expr_box" />
-<input type="button" onclick="readexpr('expr_box', 'lce_abox')" value="submit" />
+<input type="button" onclick="readexpr('expr_box')" value="Reset" />
+<input type="button" onclick="eng.step()" value="Step" />
 </form>
 </div>
 
-<div id="lce_abox">
+<div id="lce_abox"></div>
 
-</div>
+<script type="text/javascript">
+eng.setDefTable('def_box');
+eng.setOutTable('lce_abox');
+
+eng.addDef("SUCC", lce_read_expr(" \\lambda n f x. f ( n f x ) "));
+
+eng.makeTables();
+
+</script>
 
 </body>
 </html>
