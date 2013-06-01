@@ -52,8 +52,24 @@ function lc_engine()
 	
 	this.addDef = function(name, def)
 	{
+		var i;
 		if (def == undefined) { alert("Error: failed to parse new definition."); }
-		else { this.definitions.push(new def_pair(name, def)); }
+		else
+		{
+			for (i = 0; i < this.definitions.length && name > this.definitions[i].name; i++) { }
+			if (i == this.definitions.length)
+			{
+				this.definitions.push(new def_pair(name, def));
+			}
+			else if (name == this.definitions[i].name)
+			{
+				this.definitions[i] = new def_pair(name, def);
+			}
+			else
+			{
+				this.definitions.splice(i,0, new def_pair(name, def));
+			}
+		}
 	}
 	
 	this.makeTables = function()

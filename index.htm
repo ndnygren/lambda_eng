@@ -10,6 +10,14 @@
 
 var eng = new lc_engine();
 
+function adddef(name_source, source)
+{
+	var input_text = document.getElementById(source).value;
+	var current = lce_read_expr(input_text);
+	eng.addDef(strip_ws(document.getElementById(name_source).value), current);
+	eng.makeTables();
+}
+
 function readexpr(source)
 {
 	var input_text = document.getElementById(source).value;
@@ -20,8 +28,24 @@ function readexpr(source)
 
 </script>
 <div id="def_box"></div>
+<div id="def_control_box">
+<form id="def_control_form">
+<table>
+	<tr>
+		<td>new Definition Name:</td>
+		<td><input id="def_name_box" /></td>
+	</tr>
+	<tr>
+		<td>new Definition:</td>
+		<td><input id="def_value_box" /></td>
+	</tr>
+</table>
+<input type="button" onclick="adddef('def_name_box', 'def_value_box')" value="Add" />
+</form>
+</div>
 <div id="lce_qbox">
 <form id="form1">
+Enter an expression:
 <input id="expr_box" />
 <input type="button" onclick="readexpr('expr_box')" value="Reset" />
 <input type="button" onclick="eng.step()" value="Step" />
