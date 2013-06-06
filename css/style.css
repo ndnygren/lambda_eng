@@ -1,0 +1,102 @@
+html {
+	height: 100%;
+}
+
+body {
+	font-family: verdana, arial, sans-serif;
+	padding: 0px;
+	margin: 0px;
+	font-size: .74em;
+	color:#333333;
+	background:#F9F9F9;
+}
+
+table {
+	border: 0;
+}
+
+#maincontainer {
+	width:1050px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#header {
+	width:100%;
+	float:left;
+}
+
+#menus {
+	font-size:95%;
+	width:20%;
+	float:left;
+}
+
+#content{
+	width:78%;
+	float:right;
+	margin: 5px 5px 100px 5px;
+}
+
+
+#clear{
+	float:left;
+	overflow: auto;
+	width: 100%;
+}
+
+#supfooter {
+	width:95%;
+	font-size:80%;
+	float:right;
+	color:#BBBBBB;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#footer {
+	width:95%;
+	font-size:85%;
+	float:right;
+	color:#BBBBBB;
+	margin-left: auto;
+	margin-right: auto;
+	text-align:center;
+	margin: 5px 5px 20px 5px;
+}
+
+#gpandfb{
+	width:99%;
+	margin: 10px 5px 10px 5px;
+}
+
+img { 
+	vertical-align: middle; 
+}
+
+
+textarea
+{
+    border:1px solid #999999;
+    width:95%;
+    margin:5px 0;
+    padding:3px;
+}
+
+
+a:link    {
+	text-decoration:  none;
+	color:            #000000;
+} 
+a:visited {
+	text-decoration:  none;
+	color:            #000000;
+} 
+a:hover   {
+	text-decoration:  underline;
+	color:            #DDDDDD;
+} 
+a:active  {
+	text-decoration:  none;
+	color:            #000000;
+} 

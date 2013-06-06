@@ -221,7 +221,6 @@ function lc_engine()
 			}
 			else
 			{
-				alert("unstepable");
 				this.steppable = false;
 			}
 		}

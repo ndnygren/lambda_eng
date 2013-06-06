@@ -1,7 +1,8 @@
 <html>
 <head>
 <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
-<title>test page</title>
+<title>nygren.ca - Lambda Calculus Engine</title>
+<link href="css/style.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="js/lce_parse.js"></script>
 <script type="text/javascript" src="js/lc_engine.js"></script>
 </head>
@@ -27,33 +28,45 @@ function readexpr(source)
 }
 
 </script>
-<div id="def_box"></div>
-<div id="def_control_box">
-<form id="def_control_form">
-<table>
-	<tr>
-		<td>new Definition Name:</td>
-		<td><input id="def_name_box" /></td>
-		<td></td>
-	</tr>
-	<tr>
-		<td>new Definition:</td>
-		<td><input id="def_value_box" /></td>
-		<td><input type="button" onclick="adddef('def_name_box', 'def_value_box')" value="Add" /></td>
-	</tr>
-</table>
-</form>
-</div>
-<div id="lce_qbox">
-<form id="form1">
-Enter an expression:
-<input id="expr_box" />
-<input type="button" onclick="readexpr('expr_box')" value="Reset" />
-<input type="button" onclick="eng.step()" value="Step" />
-</form>
-</div>
+<div id="maincontainer">
+	<div id="header">
+		<div align=LEFT width=20%><h1>nygren.ca - Lambda Calculus Engine</h1></div>
+	</div>
+	<div id="clear">
+		<div id="menus">
+			<a href="/">&lt; Back</a><br/>
+		</div>
+		<div id="content">
+			<div id="def_box"></div>
+			<div id="def_control_box">
+				<form id="def_control_form">
+					<table>
+						<tr>
+							<td>new Definition Name:</td>
+							<td><input id="def_name_box" /></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>new Definition:</td>
+							<td><input id="def_value_box" /></td>
+							<td><input type="button" onclick="adddef('def_name_box', 'def_value_box')" value="Add" /></td>
+						</tr>
+					</table>
+				</form>
+			</div>
+			<div id="lce_qbox">
+				<form id="form1">
+				Enter an expression:
+				<input id="expr_box" />
+				<input type="button" onclick="readexpr('expr_box')" value="Reset" />
+				<input type="button" onclick="eng.step()" value="Step" />
+				</form>
+			</div>
 
-<div id="lce_abox"></div>
+			<div id="lce_abox"></div>
+		</div>
+	</div>
+</div>
 
 <script type="text/javascript">
 eng.setDefTable('def_box');
@@ -61,6 +74,10 @@ eng.setOutTable('lce_abox');
 
 eng.addDef("SUCC", lce_read_expr(" \\lambda n f x. f ( n f x ) "));
 eng.addDef("ADD", lce_read_expr(" \\lambda n m f x . m f ( n f x) "));
+eng.addDef("ZERO", lce_read_expr(" \\lambda f x.x "));
+eng.addDef("ONE", lce_read_expr(" SUCC ZERO "));
+eng.addDef("TWO", lce_read_expr(" SUCC ONE "));
+eng.addDef("THREE", lce_read_expr(" SUCC TWO "));
 
 eng.makeTables();
 
