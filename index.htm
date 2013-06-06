@@ -34,13 +34,14 @@ function readexpr(source)
 	<tr>
 		<td>new Definition Name:</td>
 		<td><input id="def_name_box" /></td>
+		<td></td>
 	</tr>
 	<tr>
 		<td>new Definition:</td>
 		<td><input id="def_value_box" /></td>
+		<td><input type="button" onclick="adddef('def_name_box', 'def_value_box')" value="Add" /></td>
 	</tr>
 </table>
-<input type="button" onclick="adddef('def_name_box', 'def_value_box')" value="Add" />
 </form>
 </div>
 <div id="lce_qbox">
@@ -59,6 +60,7 @@ eng.setDefTable('def_box');
 eng.setOutTable('lce_abox');
 
 eng.addDef("SUCC", lce_read_expr(" \\lambda n f x. f ( n f x ) "));
+eng.addDef("ADD", lce_read_expr(" \\lambda n m f x . m f ( n f x) "));
 
 eng.makeTables();
 

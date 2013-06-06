@@ -113,6 +113,15 @@ function lc_engine()
 	this.findNextStep = function(expr)
 	{
 		var temp;
+		if (expr.type == "F")
+		{
+			temp = this.findNextStep(expr.subexpr);
+			if (temp != undefined)
+			{
+				expr.subexpr = temp;
+				return expr;
+			}
+		}
 		if (expr.type == "A")
 		{
 			if (expr.lhs.type == "F")
@@ -136,9 +145,21 @@ function lc_engine()
 				}
 			}
 		}
+
+		return undefined;
+	}
+
+	this.findFirstName = function(expr)
+	{
 		if (expr.type == "F")
 		{
-			temp = this.findNextStep(expr.subexpr);
+			if (expr.subexpr.type == "V" && this.inDefs(expr.subexpr.data) != -1)
+			{
+				expr.subexpr = this.definitions[this.inDefs(expr.subexpr.data)].def.copy();
+				return expr;
+			}
+
+			temp = this.findFirstName(expr.subexpr);
 			if (temp != undefined)
 			{
 				expr.subexpr = temp;
@@ -147,9 +168,22 @@ function lc_engine()
 		}
 		if (expr.type == "A")
 		{
-			if (expr.lhs.type == "V" && this.inDefs(expr.lhs.data) != -1)
+			temp = this.findFirstName(expr.lhs);
+			if (temp != undefined)
+			{
+				expr.lhs = temp;
+				return expr;
+			}
+			else if (expr.lhs.type == "V" && this.inDefs(expr.lhs.data) != -1)
 			{
 				expr.lhs = this.definitions[this.inDefs(expr.lhs.data)].def.copy();
+				return expr;
+			}
+
+			temp = this.findFirstName(expr.rhs);
+			if (temp != undefined)
+			{
+				expr.rhs = temp;
 				return expr;
 			}
 			else if (expr.rhs.type == "V" && this.inDefs(expr.rhs.data) != -1)
@@ -161,7 +195,7 @@ function lc_engine()
 
 		return undefined;
 	}
-
+	
 	this.step = function()
 	{
 		if (!this.steppable) { return; }
@@ -178,7 +212,18 @@ function lc_engine()
 		}
 		else
 		{
-			this.steppable = false;
+			current = this.steps[this.steps.length - 1].copy();
+			current = this.findFirstName(current);
+			if (current)
+			{
+				this.steps.push(current);
+				this.makeTables();
+			}
+			else
+			{
+				alert("unstepable");
+				this.steppable = false;
+			}
 		}
 	}
 }
