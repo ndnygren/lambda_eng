@@ -65,6 +65,7 @@ function lc_engine()
 		this.steps = [];
 		this.orig_expr = input;
 		this.steps.push(input);
+		this.step();
 	}
 	
 	this.addDef = function(name, def)
@@ -240,6 +241,15 @@ function lc_engine()
 			{
 				this.steppable = false;
 			}
+		}
+
+		if (this.steppable)
+		{
+			eng = this;
+			setTimeout(function()
+			{
+				eng.step();
+			}, 10);
 		}
 	}
 }
