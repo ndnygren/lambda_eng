@@ -84,6 +84,35 @@ textarea
 }
 
 
+table.lce_output_table tr:nth-child(odd) td
+{
+	background-color:#EEEEEE;
+}
+
+table.lce_output_table tr:nth-child(even) td
+{
+	background-color:#FFFFFF;
+}
+
+table.lce_output_table td
+{
+	font-family: "Courier New", Courier, monospace;
+	padding: 0px;
+	margin: 0px;
+	font-size: .85em;
+	color:#333333;
+}
+
+div.lce_code
+{
+	font-family: "Courier New", Courier, monospace;
+	padding: 10px;
+	margin: 0px;
+	font-size: 1.2em;
+	color:#333333;
+	background-color:#DDDDDD;
+}
+
 a:link    {
 	text-decoration:  none;
 	color:            #000000;

@@ -37,17 +37,54 @@ function readexpr(source)
 			<a href="/">&lt; Back</a><br/>
 		</div>
 		<div id="content">
+			Some notes about syntax:
+			<ul>
+				<li>
+					The LaTeX syntax is used for lambda. For example:
+					<div class="lce_code"> \lambda f x.x</div>
+					will give you:
+					<div class="lce_code"> &lambda; f x.x</div>
+				</li>
+				<li>
+					Applications are assumed to be left-associative in the case that no brackets are supplied. For example:
+					<div class="lce_code"> x y z</div>
+					will be interpreted as:
+					<div class="lce_code"> (x y) z</div>
+				</li>
+				<li>
+					Multiple functional abstractions can be abbreviated as one. For example:
+					<div class="lce_code"> &lambda; f .&lambda; x. f x</div>
+					is equivalent to:
+					<div class="lce_code"> &lambda; f x. f x</div>
+					This and the note above are same notational conventions found at: <a href="http://en.wikipedia.org/wiki/Lambda_calculus">http://en.wikipedia.org/wiki/Lambda_calculus</a>
+				</li>
+				<li>
+					Variable names need not be single character. For this reason multiple variables must be delimited by whitespace. For example,
+					<div class="lce_code"> &lambda; f x. f x</div>
+					is a function of 2 variables.
+					<div class="lce_code"> &lambda; fx. f x</div>
+					is a function of 1 variable.
+				</li>
+				<li>
+				 Meta-characters are '(', ')', and '.'. Also the full string '\lambda'. 
+				 Everything else is permitted for variable names and definitions. 
+				 Definitions do not necessarily need to be named in upper-case.
+				</li>
+			</ul>
+			The following are a list of definitions (abbreviations) which will be substituted in at run time.
+			These will be only be substituted when no beta-reductions are possible.
+		
 			<div id="def_box"></div>
 			<div id="def_control_box">
 				<form id="def_control_form">
 					<table>
 						<tr>
-							<td>new Definition Name:</td>
+							<td style="font-size: .85em;">new Definition Name:</td>
 							<td><input id="def_name_box" /></td>
 							<td></td>
 						</tr>
 						<tr>
-							<td>new Definition:</td>
+							<td style="font-size: .85em;">new Definition:</td>
 							<td><input id="def_value_box" /></td>
 							<td><input type="button" onclick="adddef('def_name_box', 'def_value_box')" value="Add" /></td>
 						</tr>

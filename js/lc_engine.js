@@ -75,12 +75,12 @@ function lc_engine()
 	this.makeTables = function()
 	{
 		var i;
-		var defout = "<table>\n\t<tr><th>Name</th><th>Value</th></tr>\n";
-		var stepout = "<table>\n\t<tr><th>Step Number</th><th>Expression</th></tr>\n";
+		var defout = "<table class=\"lce_output_table\">\n\t<tr><th>Name</th><th>Value</th></tr>\n";
+		var stepout = "<table class=\"lce_output_table\">\n\t<tr><th>Step Number</th><th>Expression</th></tr>\n";
 
 		for (i = 0; i < this.definitions.length; i++)
 		{
-			defout += "\t<tr><td>" + this.definitions[i].name + "</td><td>" + this.definitions[i].def.toString().replace(/\\lambda/g, "<img src=\"lambda.png\"/>") + "</td></tr>\n";
+			defout += "\t<tr><td>" + this.definitions[i].name + "</td><td>" + this.definitions[i].def.toString().replace(/\\lambda/g, "&lambda;") + "</td></tr>\n";
 		}
 
 		defout += "</table>\n";
@@ -88,7 +88,7 @@ function lc_engine()
 
 		for (i = 0; i < this.steps.length; i++)
 		{
-			stepout += "\t<tr><td>" + i + "</td><td>" + this.steps[i].toString().replace(/\\lambda/g, "<img src=\"lambda.png\"/>") + "</td></tr>\n";
+			stepout += "\t<tr><td>" + i + "</td><td>" + this.steps[i].toString().replace(/\\lambda/g, "&lambda;") + "</td></tr>\n";
 		}
 
 		stepout += "</table>\n";
